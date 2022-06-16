@@ -131,7 +131,6 @@ export const SelectCurrencyModal: FC<SelectCurrencyModalProps> = ({
 
 					return (
 						<CategoryButton
-							variant="secondary"
 							noOutline={true}
 							isActive={isActive}
 							disabled={noItem}
@@ -224,20 +223,14 @@ const CategoryFilters = styled.div`
 const CategoryButton = styled(Button)`
 	height: 30px;
 	text-transform: uppercase;
-	font-size: 12px;
+	font-size: 13px;
+	font-variant: all-small-caps;
+	color: ${(props) => props.theme.colors.selectedTheme.gray};
 
 	${(props) =>
 		props.isActive &&
 		css`
 			color: ${props.theme.colors.selectedTheme.button.text};
-			background: ${props.theme.colors.selectedTheme.button.fill};
-			/* background: transparent */
-		`};
-	${(props) =>
-		props.disabled &&
-		css`
-			color: ${props.theme.colors.selectedTheme.button.disabled.text};
-			background: ${props.theme.colors.selectedTheme.button.disabled.background};
 		`};
 `;
 
