@@ -30,6 +30,10 @@ export default function Search({ value, onChange, disabled }: Props) {
 const StyledSvg = styled(SearchIconPath)`
 	position: absolute;
 	left: 12px;
+	z-index: 1;
+	> path {
+		fill: ${(props) => props.theme.colors.selectedTheme.icon.fill};
+	}
 `;
 
 const StyledSearchInput = styled(SearchInput)`
