@@ -20,6 +20,9 @@ import LinkIcon from 'assets/svg/app/link.svg';
 import * as _ from 'lodash/fp';
 import { isFiatCurrency } from 'utils/currencies';
 import useGetWalletTrades from 'queries/synths/useGetWalletTrades';
+import { GridDivCenteredRow } from 'styles/common';
+import Link from 'next/link';
+import ROUTES from 'constants/routes';
 
 type WalletTradesExchangeResult = Omit<SynthTradesExchangeResult, 'timestamp'> & {
 	timestamp: number;
@@ -62,6 +65,14 @@ const SpotHistoryTable: FC = () => {
 				data={filteredHistoricalTrades}
 				showPagination={true}
 				highlightRowsOnHover
+				noResultsMessage={
+					<TableNoResults>
+						{t('dashboard.overview.spot-history-table.no-trade-history')}
+						<Link href={ROUTES.Exchange.Home}>
+							<div>{t('dashboard.overview.spot-history-table.no-trade-history-link')}</div>
+						</Link>
+					</TableNoResults>
+				}
 				sortBy={[
 					{
 						id: 'dateTime',
@@ -70,7 +81,9 @@ const SpotHistoryTable: FC = () => {
 				]}
 				columns={[
 					{
-						Header: <TableHeader>{t('dashboard.overview.history-table.date-time')}</TableHeader>,
+						Header: (
+							<TableHeader>{t('dashboard.overview.spot-history-table.date-time')}</TableHeader>
+						),
 						accessor: 'dateTime',
 						Cell: (cellProps: CellProps<WalletTradesExchangeResult>) => {
 							return conditionalRender(
@@ -83,7 +96,7 @@ const SpotHistoryTable: FC = () => {
 						width: 190,
 					},
 					{
-						Header: <TableHeader>{t('dashboard.overview.history-table.from')}</TableHeader>,
+						Header: <TableHeader>{t('dashboard.overview.spot-history-table.from')}</TableHeader>,
 						accessor: 'fromAmount',
 						Cell: (cellProps: CellProps<WalletTradesExchangeResult>) => {
 							return conditionalRender(
@@ -113,7 +126,7 @@ const SpotHistoryTable: FC = () => {
 						width: 190,
 					},
 					{
-						Header: <TableHeader>{t('dashboard.overview.history-table.to')}</TableHeader>,
+						Header: <TableHeader>{t('dashboard.overview.spot-history-table.to')}</TableHeader>,
 						accessor: 'toAmount',
 						Cell: (cellProps: CellProps<WalletTradesExchangeResult>) => {
 							return conditionalRender(
@@ -143,7 +156,9 @@ const SpotHistoryTable: FC = () => {
 						width: 190,
 					},
 					{
-						Header: <TableHeader>{t('dashboard.overview.history-table.usd-value')}</TableHeader>,
+						Header: (
+							<TableHeader>{t('dashboard.overview.spot-history-table.usd-value')}</TableHeader>
+						),
 						accessor: 'amount',
 						Cell: (cellProps: CellProps<WalletTradesExchangeResult>) => {
 							const currencyKey = cellProps.row.original.toSynth?.symbol as CurrencyKey;
@@ -245,6 +260,23 @@ const StyledText = styled.div`
 	grid-column: 2;
 	grid-row: 1;
 	color: ${(props) => props.theme.colors.common.secondaryGray};
+`;
+
+const TableNoResults = styled(GridDivCenteredRow)`
+	padding: 50px 0;
+	justify-content: center;
+	margin-top: -2px;
+	justify-items: center;
+	grid-gap: 10px;
+	color: ${(props) => props.theme.colors.selectedTheme.button.text};
+	font-size: 20px;
+	font-family: ${(props) => props.theme.fonts.bold};
+	div {
+		text-decoration: underline;
+		cursor: pointer;
+		font-size: 16px;
+		font-family: ${(props) => props.theme.fonts.regular};
+	}
 `;
 
 const SynthContainer = styled.div`
