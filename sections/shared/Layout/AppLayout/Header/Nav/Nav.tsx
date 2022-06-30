@@ -71,6 +71,7 @@ const MenuLinkItem = styled.li<{ isActive: boolean }>`
 		text-transform: capitalize;
 		border-radius: 100px;
 		background: transparent;
+		transition: all 0.1s ease-in-out;
 		color: ${(props) =>
 			props.isActive
 				? props.theme.colors.selectedTheme.button.text
