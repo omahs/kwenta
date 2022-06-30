@@ -19,7 +19,6 @@ const StyledText = styled.p<{ $side: PositionProps['side'] }>`
 			color: ${(props) => props.theme.colors.selectedTheme.green};
 			background: rgba(127, 212, 130, 0.1);
 			font-family: ${(props) => props.theme.fonts.monoBold};
-			font-variant: all-small-caps;
 			letter-spacing: 1.4px;
 		`};
 
